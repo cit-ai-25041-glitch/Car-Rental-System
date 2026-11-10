@@ -1,0 +1,171 @@
+Car Rental System
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Car {
+private:
+    int id;
+    string model;
+    bool rented;
+
+protected:
+    double price;
+
+public:
+    Car(int i, string m, double p) {
+        id = i;
+        model = m;
+        price = p;
+        rented = false;
+    }
+
+    virtual void display() {
+        cout << "ID: " << id << endl;
+        cout << "Model: " << model << endl;
+        cout << "Price: " << price << endl;
+        cout << "Status: " << (rented ? "Rented" : "Available") << endl;
+    }
+
+    double calculateCost(int days) {
+        return price * days;
+    }
+
+    double calculateCost(int days, double discount) {
+        return (price * days) - (price * days * discount / 100);
+    }
+
+    int getId() {
+        return id;
+    }
+
+    bool isRented() {
+        return rented;
+    }
+
+    void rent() {
+        rented = true;
+    }
+
+    virtual ~Car() {}
+};
+
+class EconomyCar : public Car {
+public:
+    EconomyCar(int i, string m, double p)
+        : Car(i, m, p) {}
+
+    void display() override {
+        cout << "\nEconomy Car" << endl;
+        Car::display();
+    }
+};
+
+class LuxuryCar : public Car {
+public:
+    LuxuryCar(int i, string m, double p)
+        : Car(i, m, p) {}
+
+    void display() override {
+        cout << "\nLuxury Car" << endl;
+        Car::display();
+    }
+};
+
+class Customer {
+private:
+    string name;
+
+public:
+    Customer(string n) {
+        name = n;
+    }
+
+    string getName() {
+        return name;
+    }
+};
+
+int main() {
+    vector<Car*> cars;
+
+    cars.push_back(new EconomyCar(1, "Toyota", 30));
+    cars.push_back(new EconomyCar(2, "Hyundai", 25));
+    cars.push_back(new LuxuryCar(3, "BMW", 100));
+    cars.push_back(new LuxuryCar(4, "Mercedes", 120));
+
+    int choice;
+
+    do {
+        cout << "\n===== Car Rental System =====" << endl;
+        cout << "1. Show Cars" << endl;
+        cout << "2. Rent Car" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            for (Car* c : cars) {
+                c->display();
+            }
+        }
+
+        else if (choice == 2) {
+            string name;
+            int id, days;
+            bool found = false;
+
+            cout << "Enter customer name: ";
+            cin >> name;
+
+            cout << "Enter car ID: ";
+            cin >> id;
+
+            cout << "Enter rental days: ";
+            cin >> days;
+
+            for (Car* c : cars) {
+                if (c->getId() == id) {
+                    found = true;
+
+                    if (!c->isRented() && days > 0) {
+                        Customer customer(name);
+
+                        double total = c->calculateCost(days);
+                        c->rent();
+
+                        cout << "\nRental Successful!" << endl;
+                        cout << "Customer: " << customer.getName() << endl;
+                        cout << "Total Cost: " << total << endl;
+                    }
+                    else {
+                        cout << "Car is not available!" << endl;
+                    }
+
+                    break;
+                }
+            }
+
+            if (!found) {
+                cout << "Car not found!" << endl;
+            }
+        }
+
+        else if (choice == 3) {
+            cout << "Thank you!" << endl;
+        }
+
+        else {
+            cout << "Invalid choice!" << endl;
+        }
+
+    } while (choice != 3);
+
+    for (Car* c : cars) {
+        delete c;
+    }
+
+    return 0;
+}
