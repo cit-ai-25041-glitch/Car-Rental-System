@@ -1,5 +1,38 @@
-The Car Rental System is a program written in C++ used to manage car rental operations. It contains four classes: Car, EconomyCar, LuxuryCar, and Customer. The program allows users to display cars, rent a car, and calculate the rental cost. It uses Object-Oriented Programming concepts such as Encapsulation, Inheritance, Polymorphism, and Function Overloading.
-How the Program Works:
+# Car Rental System 🚗
 
-The program displays a main menu with three options: Show Cars, Rent Car, and Exit. The user can view all available cars, choose a car to rent, and enter their name, car ID, and rental days. The program checks if the car is available, calculates the total rental cost, and changes the car status to Rented. If the car is not available, it displays a message saying that the car is not available.
+## Project Description
+A simple console-based Car Rental System developed using C++ for the Object-Oriented Programming (OOP) course.
 
+The system allows users to display cars, rent a car, enter customer information, and calculate rental costs.
+
+## Features
+- Display all cars.
+- Rent a car using its ID.
+- Enter customer name and rental days.
+- Calculate total rental cost.
+- Check car availability.
+- Display a message when car objects are destroyed.
+
+## OOP Concepts Used
+- **Classes and Objects:** `Car` and `Customer`.
+- **Encapsulation:** Using `private` and `public`.
+- **Constructor:** Initializes car and customer objects.
+- **Destructor:** Displays a message when a car object is destroyed.
+- **Member Functions:** Manage and display car information.
+
+## C++ Concepts Used
+- Arrays.
+- Variables and Data Types.
+- Functions.
+- `if / else` Statements.
+- `while` and `for` Loops.
+- Logical and Comparison Operators.
+- `iostream` and `string` Libraries.
+
+## Technologies
+- **Language:** C++
+- **Application:** Console Application
+- **Course:** Object-Oriented Programming (OOP)
+
+## Note
+The project contains four predefined cars. It does not use a database or file storage.
